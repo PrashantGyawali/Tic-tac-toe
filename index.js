@@ -14,6 +14,9 @@ const gameOverText=document.getElementById("game-over-text");
 const playAgain=document.getElementById("play-again");
 playAgain.addEventListener("click",statnewgame);
 
+
+
+
 //Sounds
 // const click= new Audio();
 // const gameOverSound= new Audio();
@@ -31,7 +34,14 @@ function setHoverText(){
 setHoverText();
 
 
+document.getElementById("alltime_draws").innerText=localStorage.getItem("draws");
+document.getElementById("alltime_x_wins").innerText=localStorage.getItem("x_wins");
+document.getElementById("alltime_o_wins").innerText=localStorage.getItem("o_wins");
+document.getElementById("alltime_matches").innerText=localStorage.getItem("matches");
 
+
+
+//tileclick
 function tileClick(event)
 {
     if(gameOverArea.classList.contains("visible"))
@@ -84,10 +94,23 @@ const winningcombo = [
 ]
 
 
-function checkWinner(){
 
+
+
+
+
+
+
+
+
+
+
+
+
+//Checkwinner fn
+function checkWinner(){
     const allTilesfilled= boardState.every((tile)=> tile!=null);
-    if(allTilesfilled){ gameOverScreen(null);}
+
     
     for(let winningcombos of winningcombo)
     {
@@ -102,10 +125,56 @@ function checkWinner(){
             strike.classList.add(strikeClass);
             gameOverScreen(tile1);
             won=1;
-        }
+            if(tile1=="X")
+            {
+                 if(sessionStorage.x_wins){
+                    sessionStorage.x_wins=Number(sessionStorage.x_wins)+1;}
+                 else{sessionStorage.x_wins=1;}
+
+                 if(localStorage.x_wins){
+                    localStorage.x_wins=Number(localStorage.x_wins)+1;}
+                 else{localStorage.x_wins=1;}
+            }
+            if(tile1=="O")
+            {
+                 if(sessionStorage.o_wins){
+                    sessionStorage.o_wins=Number(sessionStorage.o_wins)+1;}
+                 else{sessionStorage.o_wins=1;}
+
+                 
+                 if(localStorage.o_wins){
+                    localStorage.o_wins=Number(localStorage.o_wins)+1;}
+                 else{localStorage.o_wins=1;}
+            }
+
+            if(sessionStorage.matches)
+            {sessionStorage.matches=Number(sessionStorage.matches)+1;}
+            else{sessionStorage.matches=1;}  
+
+           if(localStorage.matches)
+            {localStorage.matches=Number(localStorage.matches)+1;}
+            else{localStorage.matches=1;}   
+    }
+}
+if(allTilesfilled&&won==0){ 
+    gameOverScreen(null);
+
+     if(sessionStorage.draws){
+        sessionStorage.draws=Number(sessionStorage.draws)+1;}
+     else{sessionStorage.draws=1;}
+   
+
+     if(localStorage.matches)
+     {localStorage.matches=Number(localStorage.matches)+1;}
+     else{localStorage.matches=1;}     
     }
 }
 
+
+
+
+
+//gameover fn
 function gameOverScreen(winnerText)
 {      document.querySelector(':root').style.setProperty('--opacity', '0');
     let text="Draw!";
@@ -117,10 +186,16 @@ function gameOverScreen(winnerText)
     
     gameOverText.innerText=text;
  
-
 }
 
 
+
+
+
+
+
+
+//New game fn
 function statnewgame(){
     strike.className="strike";
     gameOverArea.className="hidden";
@@ -131,9 +206,24 @@ function statnewgame(){
      turn=Player_X;
      document.querySelector(':root').style.setProperty('--opacity', '0');
     show_chooseplayer();
+    document.getElementById("Session_draws").innerText=sessionStorage.getItem("draws");
+    document.getElementById("Session_x_wins").innerText=sessionStorage.getItem("x_wins");
+    document.getElementById("Session_o_wins").innerText=sessionStorage.getItem("o_wins");
+    document.getElementById("Session_matches").innerText=sessionStorage.getItem("matches");
 
+    document.getElementById("alltime_draws").innerText=localStorage.getItem("draws");
+    document.getElementById("alltime_x_wins").innerText=localStorage.getItem("x_wins");
+    document.getElementById("alltime_o_wins").innerText=localStorage.getItem("o_wins");
+    document.getElementById("alltime_matches").innerText=localStorage.getItem("matches");
 }
 
+
+
+
+
+
+
+//choose player fn
 console.log(document.getElementById("Player-select"));
 function show_chooseplayer()
 {
@@ -142,4 +232,6 @@ function show_chooseplayer()
    document.getElementById("X").addEventListener("click",function(){turn="X"; document.querySelector(':root').style.setProperty('--opacity', '0.4');  document.getElementById("Player-select").classList.add("hidden");     won=0;   setHoverText();});
    document.getElementById("O").addEventListener("click",function(){turn="O"; document.querySelector(':root').style.setProperty('--opacity', '0.4');  document.getElementById("Player-select").classList.add("hidden");      won=0;  setHoverText(); });
 
+   if(Number(localStorage.getItem("matches")<(Number(localStorage.getItem("o_wins"))+Number(localStorage.getItem("x_wins"))+Number(localStorage.getItem("draws"))))){localStorage.clear();}
 }
+

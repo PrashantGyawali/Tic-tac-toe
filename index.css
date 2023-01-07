@@ -29,6 +29,30 @@ body{
 
 
 
+#Matchesinfo{
+    display: flex;
+    color: aliceblue;
+
+}
+.Winscount{
+    display: inline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #Player-select {
     position: absolute;
     height: 21vh;

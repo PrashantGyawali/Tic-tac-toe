@@ -20,16 +20,73 @@ body{
     justify-content: center;
     align-items: center;
 }
-
-h1{
+#title{
     color: aqua;
+    font-size: 10vh;
 }
+
+
+
+
+
+#Player-select {
+    position: absolute;
+    height: 21vh;
+    border: 3px solid rgb(238, 238, 34);
+    background-color: blue;
+    border-radius: 10px;
+
+    z-index: 200;
+  }
+  
+  .Player_select_text{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+  }
+  #text{
+    font-size: 5vmin;
+    color: greenyellow;
+    text-align: center;
+    white-space: nowrap;
+
+  }
+  
+  .button_part{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+ .select_button{
+    width: 49%;
+    height: 10vh;
+    font-size: 8vh;
+  }
+  .box-top {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .botton_part{
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+
+
 
 
 
 .borderright{
     border-right: 1vh solid  aqua;
-
 }
 .borderleft{
     border-left: 1vh solid  aqua;
@@ -136,14 +193,23 @@ border: indigo solid 1vh;
 
 .x-hover:hover::after{
     content: "X";
-    opacity:0.4;
+    opacity:var(--opacity);
 }
 
 .o-hover:hover::after{
     content:"O";
-    opacity: 0.4;
+    opacity: var(--opacity);
 }
 
+.X-color{
+    color:white;
+}
+.O-color{
+    color:yellow;
+}
 
+:root {
+    --opacity:0.4;
+  }
 /* ::after adds text/content  
 :hover is condition? */

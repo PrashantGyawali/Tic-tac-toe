@@ -19,15 +19,13 @@ playAgain.addEventListener("click",statnewgame);
 // const gameOverSound= new Audio();
 
 tile.forEach(tiles=>tiles.addEventListener("click",tileClick));
-console.log(tile);
 
-
+tile.forEach((tiles)=>{ tiles.classList.remove("x-hover"); tiles.classList.remove("o-hover");})
 function setHoverText(){
-
-    tile.forEach((tiles)=>{ tiles.classList.remove("x-hover"); tiles.classList.remove("o-hover");})
+   tile.forEach((tiles)=>{ tiles.classList.remove("x-hover"); tiles.classList.remove("o-hover");})
     const hoverClass=  `${turn.toLowerCase()}-hover`;
 
-    tile.forEach((tiles)=>{ if(tiles.innerText==""){tiles.classList.add(hoverClass);};  })
+    tile.forEach((tiles)=>{ if(tiles.innerText==""&&won!=1){tiles.classList.add(hoverClass);};  })
 }
 
 setHoverText();
@@ -55,12 +53,14 @@ function tileClick(event)
     if( turn===Player_X)
     {
         tile.innerText=Player_X;
+        tile.classList.add("X-color");
         boardState[tileNumber-1]=Player_X;
         turn=Player_O;
     }
 
     else{
         tile.innerText=Player_O;
+        tile.classList.add("O-color");
         boardState[tileNumber-1]=Player_O;
         turn=Player_X;
     }
@@ -107,7 +107,7 @@ function checkWinner(){
 }
 
 function gameOverScreen(winnerText)
-{ 
+{      document.querySelector(':root').style.setProperty('--opacity', '0');
     let text="Draw!";
     if(winnerText!=null)
     {
@@ -125,9 +125,21 @@ function statnewgame(){
     strike.className="strike";
     gameOverArea.className="hidden";
     boardState.fill(null);
-    tile.forEach((tiles)=>(tiles.innerText=""));
-    turn=Player_X;
-    won=0;
-    setHoverText();
+    tile.forEach((tiles)=>{tiles.innerText="";
+                           tiles.classList.remove("X-color");
+                           tiles.classList.remove("O-color");                                 });
+     turn=Player_X;
+     document.querySelector(':root').style.setProperty('--opacity', '0');
+    show_chooseplayer();
+
+}
+
+console.log(document.getElementById("Player-select"));
+function show_chooseplayer()
+{
+   document.getElementById("Player-select").classList.remove("hidden");
+   
+   document.getElementById("X").addEventListener("click",function(){turn="X"; document.querySelector(':root').style.setProperty('--opacity', '0.4');  document.getElementById("Player-select").classList.add("hidden");     won=0;   setHoverText();});
+   document.getElementById("O").addEventListener("click",function(){turn="O"; document.querySelector(':root').style.setProperty('--opacity', '0.4');  document.getElementById("Player-select").classList.add("hidden");      won=0;  setHoverText(); });
 
 }

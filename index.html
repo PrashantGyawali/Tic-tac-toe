@@ -9,7 +9,23 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <h1> Tic Tac Toe</h1>
+    <h1 id="title"> Tic Tac Toe</h1>
+
+
+
+    <div id="Player-select" class="hidden">
+        <div class="Player_select_text">
+          <p id="text">Choose First Player</p>
+        </div>
+        <div class="botton_part">
+          <button class="select_button" id="X">X</button>
+          <button class="select_button" id="O">O</button>
+        </div>
+      </div>
+
+
+
+
     <div id="board">
         <div data-index="1" class="tile borderbottom"></div>
         <div data-index="2" class="tile borderbottom borderleft borderright"></div>
